@@ -8,14 +8,18 @@
 
 function trelloNumber(){
   const lists = document.getElementsByClassName('list');
-  for (list of lists) {
+  for (const list of lists) {
     const cards = list.querySelectorAll('span.js-card-name');
     for (let i = 0; i < cards.length; i++) {
       const number = cards[i].querySelector('span.trello-number');
       if (number != null) number.remove();
-      cards[i].insertAdjacentHTML('afterbegin', `<span class="trello-number" style="color:blue">【No. ${i + 1}】<br /></span>`);
+      const label = document.createElement('span');
+      label.className = 'trello-number';
+      label.style.color = 'blue';
+      label.append(`【No. ${i + 1}】`, document.createElement('br'));
+      cards[i].prepend(label);
     }
   }
 }
 trelloNumber();
-trelloNumberTimer = setInterval(trelloNumber, 3000);
+const trelloNumberTimer = setInterval(trelloNumber, 3000);
